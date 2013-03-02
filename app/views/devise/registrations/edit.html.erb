@@ -1,0 +1,61 @@
+<h1>Edit User</h1>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div>
+    <%= f.label :email %><br />
+    <%= f.email_field :email, :autofocus => true %>
+  </div>
+  <br />
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <br />
+  <% end %>
+
+  <div>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <br />
+
+  <div><%= f.label :amazon_tag, 'Amazon Associate ID' %><br />
+    <% if @user.reviews.count < 3 %>
+      <%= f.text_field :amazon_tag, disabled: true %>
+      <div class="well">
+        <p class="font-size">Before you can enter your Amazon Associate ID and start earning money here at Revieworama, <b>you need to write three reviews.</b> This is just so that we can get to know you a bit, and because without a few reviews you wont be earning any money anyway!</p>
+        <%= link_to "Learn More", how_path, class: 'btn btn-mini' %>
+      </div>
+    <% else %>
+      <%= f.text_field :amazon_tag %>
+    <% end %>
+  </div>
+  <br />
+
+  <div>
+    <%= f.label :password %><br />
+    <%= f.password_field :password, :autocomplete => "off" %> <i>(leave blank if you don't want to change it)</i>
+  </div>
+  <br />
+
+  <div>
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <br />
+
+  <div>
+    <%= f.label :current_password %><br />
+    <%= f.password_field :current_password %> <i>(we need your current password to confirm your changes)</i>
+  </div>
+  <br />
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+<div class="well">
+  <h3>Cancel My Account</h3>
+
+  <p class="font-size">Unhappy? If you cancel your account all the content you've contributed to the site, plus any personal information of yours that you've given us will be deleted forever.</p>
+  <%= button_to "Cancel My Account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'danger-btn' %>
+</div>

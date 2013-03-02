@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  asin: MyString
+  picture_url: MyString
+  amazon_url: MyString
+  name: MyString
+  price: 1
+  average_rating: 9.99
+
+two:
+  asin: MyString
+  picture_url: MyString
+  amazon_url: MyString
+  name: MyString
+  price: 1
+  average_rating: 9.99

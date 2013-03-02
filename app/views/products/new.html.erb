@@ -1,0 +1,95 @@
+<h1>Add a Review or Question</h1>
+
+<% if params[:aq].present? %>
+
+  <%= form_tag new_product_path, method: 'get', class: 'btn-beside-box' do %>
+    <%= text_field_tag :aq, params[:aq] %>
+    <%= submit_tag "Search", name: nil %>
+  <% end %>
+
+  <div class="well">
+    <p>Find the product you want to review and select it. If you're not sure it's the product you want, click on the title to go to the product's page on Amazon.com. Once you have selected the right product, click on the 'Select Product To Review' button at the bottom of the page.</p>
+  </div>
+
+  <%= form_tag products_path, method: 'post' do %>
+    <table class="result-table">
+      <% @results.each do |result| %>
+        <tr>
+          <td>
+            <%= radio_button_tag :asin, parent_asin(result) %>
+          </td>
+          <td>
+            <label for="asin_<%= parent_asin(result) %>" class="result-img">
+              <% if result.raw.LargeImage.present? %>
+                <%= image_tag pic_res(result.raw.LargeImage.URL, 80), alt: result.title %>
+              <% else %>
+                <%= image_tag 'blank_80.png', alt: result.title %>
+              <% end %>
+            </label>
+          </td>
+          <td class="result-link">
+            <% if result.raw.DetailPageURL.present? %>
+              <%= link_to truncate(result.title, length: 75, omission: '..'), result.raw.DetailPageURL, target: '_blank', rel: 'nofollow', class: 'hidden-phone' %>
+              <%= link_to truncate(result.title, length: 40, omission: '..'), result.raw.DetailPageURL, target: '_blank', rel: 'nofollow', class: 'visible-phone phone-result-link' %>
+            <% end %>
+            <% if result.raw.ItemAttributes.ProductGroup.present? %>
+              <p class="result-cat"><%= result.raw.ItemAttributes.ProductGroup %></p>
+            <% end %>
+            <% if result.raw.OfferSummary.present? && result.raw.OfferSummary.LowestNewPrice.present? %>
+              <p class="result-price"><%= result.raw.OfferSummary.LowestNewPrice.FormattedPrice %></p>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <br />
+    <%= submit_tag "Select Product To Review", class: 'btn' %>
+  <% end %>
+
+<% else %>
+
+  <div class="well">
+    <h3>Search for a Product to Review</h3>
+
+    <%= form_tag new_product_path, method: 'get' do %>
+
+      <%= text_field_tag :aq %>
+      <div class="actions">
+        <%= submit_tag "Search", name: nil %>
+      </div>
+    <% end %>
+  </div>
+
+  <h2>OR</h2>
+
+  <div class="well">
+    <div>
+      <h3 class="inline-block vert-align">Tell us the ASIN of the Product</h3>
+      <a href="#asinModal" role="button" class="explain-btn" data-toggle="modal">What's an ASIN?</a>
+    </div>
+
+    <!-- Modal -->
+    <div id="asinModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">What's an ASIN?</h3>
+      </div>
+      <div class="modal-body">
+        <p>ASINs are the unique ID that Amazon assigns to all of their products. Since this website is integrated with the Amazon website, we use Amazon's ASINs to help us identify products.</p>
+        <p>So if you can find the product you want to review on Amazon, you can browse down to the 'Product Details' section on Amazon's page for that product and you will find the ASIN listed there. Then tell us the ASIN, and we'll know exactly which product you're looking for.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    </div>
+
+    <%= form_tag new_product_path, method: 'get' do %>
+      <%= text_field_tag :asin %>
+
+      <div class="actions">
+        <%= submit_tag "Search" %>
+      </div>
+    <% end %>
+  </div>
+
+<% end %>

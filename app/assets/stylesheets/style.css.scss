@@ -1,0 +1,843 @@
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                VARIABLES / MIXIN CLASSES              //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+$blu: #94dbdb;
+$link_blu: #49AFCD;
+$pinkk: #D43783;
+
+.fonted {
+  font-family: 'Nova Square', cursive;
+}
+
+.float-right {
+  float: right;
+}
+
+.clear-right {
+  clear: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.clear-left {
+  clear: left;
+}
+
+.bolded {
+  font-weight: bold;
+}
+
+.bump {
+  width: 100%;
+  height: 1px;
+  clear: both;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.explain-btn {
+  @extend .btn, .btn-mini;
+  margin: 0 0 0 10px;
+  vertical-align: middle;
+}
+
+.vert-align {
+  vertical-align: middle;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+
+.btn-beside-box {
+  input[type="submit"] {
+    margin: 0 0 10px 5px;
+  }
+}
+
+.well-explain {
+  @extend .well;
+  p {
+  margin-bottom: 0px;
+  }
+}
+
+.bump {
+  height: 1px;
+  width: 100%;
+}
+
+.font-size {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                    APPLICATION WIDE                   //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+
+html, body {
+  height: 100%; // for footer
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -51px;
+}
+
+.alert {
+  margin-bottom: 2px;
+  padding: 12px 35px 12px 18px;
+  font-size: 18px;
+  @include border-radius(0);
+}
+
+.alert-last {
+  margin-bottom: 6px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @extend .fonted;
+}
+
+h1 {
+  font-size: 30px;
+  border: 5px solid $pinkk;
+  padding: 5px;
+}
+
+input[type="submit"] {
+  @extend .btn;
+}
+
+.btn {
+  @extend .btn-success, .fonted;
+  @include border-radius(2px);
+}
+
+#error_explanation {
+  h2 {
+    font-size: 22px;
+  }
+  ul li {
+    color: red;
+  }
+}
+
+.field_with_errors {
+  display: inline-block;
+  label {
+    color: red;
+  }
+}
+
+label {
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  padding: 5px;
+  text-transform: capitalize;
+  clear: left;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  @include border-radius(0);
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+  border-color: rgba($pinkk, 0.8);
+  @include box-shadow(#{0 0 8px rgba($pinkk, 0.6), 0 0 0 rgba($pinkk, 0.6) inset});
+}
+
+.well {
+  @include border-radius(0);
+  border-width: 2px;
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                        HEADER                         //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+
+
+.navbar {
+  @extend .fonted;
+  .nav > li > a {
+    padding: 5px;
+    margin: 10px 0 10px 10px;
+    border: 1px solid #666;
+    font-size: 15px;
+    i, [class^="icon-"], [class*=" icon-"] {
+      vertical-align: baseline;
+      margin-top: 0;
+    }
+  }
+  .brand {
+    font-size: 30px;
+    padding: 12px 10px 12px 20px;
+  }
+  .navbar-search .search-query {
+    margin: 6px 10px 0 10px;
+    @include border-radius(0);
+  }
+  .btn-navbar {
+    margin-top: 11px;
+  }
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                          HOME                         //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.home-hero {
+  background-color: $pinkk;
+  text-align: center;
+  padding: 7px 0;
+  .hero-pic {
+    padding: 5px 5px 5px 0;
+    margin: 0 5px 0 0;
+    border-right: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .hero-text {
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 28px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .hero-arrow {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 15px;
+  }
+}
+
+.hero-well {
+  @extend .well;
+  text-align: center;
+  margin-top: 10px;
+  .find-something {
+    @extend .fonted;
+    font-size: 30px;
+    line-height: 30px;
+  }
+  #hero-search {
+    #q {
+      margin-bottom: 0;
+    }
+  }
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                     PRODUCT#SHOW                      //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.small-h1 {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.show-img {
+  vertical-align: middle;
+  text-align: center;
+  line-height: 246px;
+  max-width: 100%;
+  @media (max-width: 767px) {
+    line-height: normal;
+  }
+}
+
+.show-img-border {
+  margin: 10px 0;
+  border-bottom: 5px solid #333;
+}
+
+.show-meta {
+  border-top: 5px solid #333;
+  margin-top: 10px;
+  padding-top: 10px;
+  .last-update {
+    float: right;
+    font-size: 12px;
+    line-height: 12px;
+    color: #666;
+    margin-bottom: 0;
+  }
+}
+
+.amazon-desc {
+  font-size: 22px;
+  line-height: 28px;
+  clear: both;
+  padding-top: 10px;
+  @media (max-width: 400px) {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+.jump-to-well {
+  @extend .well;
+  padding: 20px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  .jump-to {
+    @extend .fonted;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+.avg-star-img {
+  @media (max-width: 400px) {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.avg-star-x {
+  display: inline-block;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 48px;
+  color: $pinkk;
+  vertical-align: middle;
+  margin: 0 10px;
+  @media (max-width: 400px) {
+    font-size: 25px;
+    line-height: 24px;
+    margin: 0 2px;
+  }
+}
+
+.avg-star-rating {
+  font-size: 55px;
+  line-height: 48px;
+  @extend .fonted;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0;
+  @media (max-width: 400px) {
+    font-size: 30px;
+    line-height: 24px;
+  }
+}
+
+.amazon-btn {
+  @extend .btn;
+  padding: 8px;
+  float: right;
+  margin-bottom: 10px;
+  .amazon-btn-price {
+    font-size: 30px;
+    line-height: 30px;
+    margin-bottom: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  @media (max-width: 400px) {
+    padding: 2px 4px;
+    .amazon-btn-price {
+      font-size: 14px;
+      line-height: 14px;
+    }
+    img {
+      height: 12px;
+    }
+  }
+}
+
+.avg-star-count {
+  color: #999;
+}
+
+.review-meta {
+  .meta-top {
+    .review-title {
+      line-height: 30px;
+      border-bottom: 2px solid #333;
+      margin-bottom: 5px;
+    }
+  }
+  .meta-bot {
+    .review-stars {
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: bold;
+      img {
+        vertical-align: middle;
+      }
+    }
+    .review-by {
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: bold;
+      vertical-align: middle;
+      @media (max-width: 400px) {
+        display: block;
+      }
+    }
+    .review-date {
+      display: inline-block;
+      margin-bottom: 0;
+      float: right;
+      font-weight: bold;
+      vertical-align: middle;
+    }
+    .spec-review-share {
+      margin: 0 2px 0 0;
+      @extend .btn, .btn-mini;
+      padding: 0 2px;
+    }
+  }
+}
+
+.review-content {
+  @extend .well;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: white;
+  h1 {
+    border: 0;
+  }
+}
+
+.add-content-btn {
+  @extend .btn, .btn-large;
+  float: right;
+  margin-top: 10px;
+  @media (max-width: 400px) {
+    font-size: 11px;
+    line-height: 11px;
+    padding: 7px;
+  }
+}
+
+.show-h2 {
+  display: inline-block;
+  background-color: #333;
+  padding: 10px;
+  color: white;
+  font-size: 25px;
+  line-height: 25px;
+  @media (max-width: 400px) {
+    font-size: 16px;
+    line-height: 16px;
+    padding: 6px;
+  }
+}
+
+#show-affix {
+  top: 20px;
+  @media (min-width: 1200px) {
+    width: 226px;
+  }
+  @media (min-width: 980px) and (max-width: 1199px)  {
+    width: 176px;
+  }
+  @media (min-width: 768px) and (max-width: 979px) {
+    width: 136px;
+    padding: 13px;
+  }
+  @media (max-width: 767px) {
+    position: static;
+  }
+}
+
+.question-well {
+  @extend .well;
+  padding: 8px;
+  margin-bottom: 10px;
+  table {
+    width: 100%;
+    td {
+      font-size: 18px;
+      line-height: 25px;
+    }
+    td:first-child {
+      width: 100%;
+      padding-right: 10px;
+    }
+    td:last-child {
+      text-align: right;
+      font-size: 18px;
+      line-height: 25px;
+      font-weight: bold;
+      color: #999;
+      vertical-align: top;
+    }
+    a {
+      display: block;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                     QUESTION#SHOW                     //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.q-show-h1 {
+  border: none;
+  font-size: 25px;
+  line-height: 34px;
+  padding: 0;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #333;
+  &:before {
+    content: "Q:";
+    color: $pinkk;
+    margin-right: 2px;
+    font-size: 35px;
+  }
+  @media (max-width: 400px) {
+    font-size: 22px;
+    line-height: 28px;
+    &:before {
+      content: "Q:";
+      color: $pinkk;
+      margin-right: 2px;
+      font-size: 30px;
+    }
+  }
+}
+
+.question-for-well {
+  @extend .well;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: white;
+  .question-for {
+    @extend label;
+  }
+  .q-img {
+    vertical-align: middle;
+    text-align: center;
+    max-width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  .q-for-link {
+    font-weight: bold;
+  }
+  .q-amazon-btn {
+    @extend .btn, .btn-block;
+    margin-top: 5px;
+    .amazon-btn-price {
+      margin-bottom: 0;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 23px;
+    }
+  }
+  @media (max-width: 767px) {
+    .q-img {
+      width: 40%;
+      margin-bottom: 0;
+      display: inline-block;
+      float: left;
+    }
+    .q-product-meta {
+      float: right;
+      width: 55%;
+      .q-for-link {
+        display: inline-block;
+        font-size: 15px;
+        line-height: 20px;
+      }
+      .q-amazon-btn {
+        display: inline-block;
+        width: auto;
+        padding: 5px 10px;
+      }
+    }
+  }
+  @media (max-width: 400px) {
+    .q-for-link {
+      font-size: 15px;
+      line-height: 20px;
+    }
+    .q-amazon-btn {
+      padding: 2px 4px;
+      .amazon-btn-price {
+        font-size: 14px;
+        line-height: 14px;
+      }
+      img {
+        height: 12px;
+      }
+    }
+  }
+}
+
+.q-content {
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 10px;
+}
+
+.q-meta-well {
+  @extend .well;
+  padding: 5px;
+  margin-top: 10px;
+  .q-user {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .q-created-at {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+}
+
+#answer_content {
+  height: 150px;
+  width: 97.5%;
+}
+
+#question-affix {
+  top: 20px;
+  @media (min-width: 1200px) {
+    width: 246px;
+  }
+  @media (min-width: 980px) and (max-width: 1199px)  {
+    width: 196px;
+  }
+  @media (min-width: 768px) and (max-width: 979px) {
+    width: 136px;
+    padding: 13px;
+  }
+  @media (max-width: 767px) {
+    position: static;
+  }
+}
+
+.a-header {
+  font-size: 35px;
+  line-height: 40px;
+  color: $pinkk;
+  font-weight: bold;
+  @extend .fonted;
+  border-bottom: 2px solid #333;
+  margin-bottom: 3px;
+}
+
+.a-content {
+  font-size: 16px;
+  line-height: 22px;
+  margin-bottom: 50px;
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                        USER#SHOW                      //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.user-s-avatar {
+  max-width: 100%;
+  padding: 5px;
+  border: 2px solid #333;
+}
+
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                          DEVISE                       //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+#user_remember_me {
+  margin: 0 0 5px;
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                   ADD REVIEW RESULTS                  //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.result-table {
+  td:first-child input {
+    margin: 0 5px 20px;
+  }
+  .result-img {
+    padding-right: 10px;
+    border-right: 5px solid #333;
+    min-width: 80px;
+    min-height: 80px;
+    text-align: center;
+    line-height: 80px;
+    background-color: #fff;
+    margin-bottom: 20px;
+  }
+  .result-link {
+    vertical-align: top;
+    padding-left: 10px;
+    a {
+      font-size: 22px;
+      line-height: 26px;
+    }
+    .result-price {
+      font-size: 30px;
+      line-height: 35px;
+    }
+    .result-cat {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 0;
+      color: $pinkk;
+    }
+  }
+}
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //              REVIEW#NEW + QUESTION#NEW                //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.btn-group > .btn:last-child, .btn-group > .explain-btn:last-child, .btn-group > input[type="submit"]:last-child, .btn-group > .dropdown-toggle {
+  @include border-top-right-radius(2px);
+  @include border-bottom-right-radius(2px);
+}
+
+.btn-group > .btn:first-child, .btn-group > .explain-btn:first-child, .btn-group > input[type="submit"]:first-child {
+  @include border-top-left-radius(2px);
+  @include border-bottom-left-radius(2px);
+}
+
+#review_content, #review_title, #question_content, #question_title   {
+  width: 97.5%;
+}
+
+.review-rating {
+  margin-bottom: 10px;
+}
+
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                          FAQ                          //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.faq-nav {
+  margin-top: 10px;
+  li a {
+    border: 2px solid $pinkk;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: -2px;
+  }
+  li a:hover {
+    i {
+      opacity: 1;
+    }
+  }
+  i {
+    float: right;
+    opacity: .30;
+  }
+}
+
+
+          ///////////////////////////////////////////////////////////
+          //                                                       //
+          //                          FOOTER                       //
+          //                                                       //
+          ///////////////////////////////////////////////////////////
+
+.navbar-fixed-bottom {
+  position: static;
+  margin-top: 0;
+  .navbar-inner {
+    padding: 5px 20px;
+    .btn-navbar {
+      margin-top: 5px;
+    }
+  }
+  .nav > li > a {
+    margin: 4px 0 4px 10px;
+  }
+}
+
+#push {
+  height: 100px;
+}
+
+/* #footer {
+  height: 59px; // 60 - 1 for the 1px border
+  @media (max-width: 767px) {
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+}
+
+#footer {
+  @include background-image(linear-gradient(#222, #111));
+  background-color: #1B1B1B;
+  border-top: 1px solid #252525;
+}
+
+.footer-nav {
+  @include horizontal-list;
+  float: right;
+  @extend .fonted;
+  li {
+    padding: 5px 5px 5px 0;
+    margin: 13px 5px 13px 0;
+    a {
+      color: #999;
+      text-decoration: none;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+      font-size: 15px;
+      border: 1px solid #666;
+      padding: 5px;
+      &:hover {
+        color: #fff;
+      }
+      i {
+        vertical-align: top;
+      }
+    }
+  }
+} */

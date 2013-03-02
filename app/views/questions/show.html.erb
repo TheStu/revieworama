@@ -1,0 +1,76 @@
+<% provide(:title, @question.title) %>
+<% provide(:desc, @question.content) %>
+<div class="row">
+  <div class="span3">
+    <div class="question-for-well affix-top" data-spy="affix" data-offset-top="42" id="question-affix">
+      <div>
+        <p class="question-for">Question For</p>
+      </div>
+      <div class="q-img">
+        <%= link_to image_tag(@product.picture_url, alt: @product.name), @product.amazon_url, rel: 'nofollow', target: '_blank' %>
+      </div>
+      <div class="q-product-meta">
+        <%= link_to @product.name, product_path(@product.id), class: 'q-for-link' %>
+        <a href="<%= @product.amazon_url %>" target="_blank" rel="nofollow" class="q-amazon-btn">
+          <%= image_tag 'amazon.png' %>
+          <%= content_tag :p, "$#{@product.price}", class: 'amazon-btn-price' %>
+        </a>
+      </div>
+      <div class="bump visible-phone"></div>
+    </div>
+  </div>
+  <div class="span9">
+    <div class="row">
+      <div class="span7">
+        <h1 class="q-show-h1"><%= @question.title %></h1>
+        <div class="q-content"><%= @question.content.html_safe %></div>
+      </div>
+      <div class="span2">
+        <div class="q-meta-well">
+          <%= link_to @question.user.name, user_path(@question.user.id), class: 'q-user' %>
+          <p class="q-created-at"><%= pretty_date(@question.created_at) %></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span7">
+        <h2 class="show-h2">Answers <%= content_tag :span, "[#{@question.answers.count}]", class: 'avg-star-count' %></h2>
+      </div>
+    </div>
+    <% if @question.answers.present? %>
+      <% @question.answers.each do |answer| %>
+        <div class="row">
+          <div class="span7">
+            <p class="a-header">A:</p>
+            <div class="a-content"><%= answer.content %></div>
+          </div>
+          <div class="span2">
+            <div class="q-meta-well">
+              <%= link_to answer.user.name, user_path(answer.user.id), class: 'q-user' %>
+              <p class="q-created-at"><%= pretty_date(answer.created_at) %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="well-explain">
+        <p>No one has given an answer to this question yet!</p>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="span7">
+        <h2 class="show-h2">My Answer</h2>
+        <%= form_for [@question, @answer] do |f| %>
+          <%= f.text_area :content, placeholder: 'Contribute an answer...', class: 'wysihtml5' %>
+          <%= f.submit "Create Answer" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.wysihtml5').each(function(i, elem) {
+    $(elem).wysihtml5();
+  });
+</script>

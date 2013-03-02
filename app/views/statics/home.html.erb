@@ -1,0 +1,30 @@
+<% provide(:title, "home") %>
+<% provide(:desc, "") %>
+
+<div class="row hidden-phone">
+  <div class="span12 home-hero">
+    <%= image_tag 'write.png', class: 'hero-pic' %>
+    <p class="hero-text">Write Reviews</p>
+
+    <%= image_tag 'right_arrow.png', class: 'hero-arrow' %>
+
+    <%= image_tag 'vote.png', class: 'hero-pic' %>
+    <p class="hero-text">Participate</p>
+
+    <%= image_tag 'right_arrow.png', class: 'hero-arrow' %>
+
+    <%= image_tag 'money.png', class: 'hero-pic' %>
+    <p class="hero-text">Make Money</p>
+    <%= link_to "Learn More", how_path, class: 'explain-btn' %>
+  </div>
+</div>
+
+<div class="hero-well">
+  <p class="find-something">Find Something.</p>
+  <%= form_tag products_path, method: 'get', id: 'hero-search' do %>
+    <%= text_field_tag :q, params[:q], placeholder: 'Something...' %>
+    <%= submit_tag "Search", name: nil %>
+  <% end %>
+</div>
+
+<%= link_to "Add Review / Product", new_product_path, class: 'btn' %>

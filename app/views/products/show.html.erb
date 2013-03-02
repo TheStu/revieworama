@@ -1,0 +1,133 @@
+<% provide(:title, "#{@product.name} Review") %>
+<% provide(:desc, "Read reviews and questions for the #{@product.name}") %>
+
+<h1 class="small-h1"><%= @product.name %></h1>
+<div class="row">
+  <div class="span3">
+    <div class="show-img">
+      <% if @product.picture_url.present? %>
+        <%= link_to image_tag(@product.picture_url, alt: @product.name), @product.amazon_url, rel: 'nofollow', target: '_blank' %>
+      <% else %>
+        <%= link_to image_tag('blank_246.png', alt: @product.name), @product.amazon_url, rel: 'nofollow', target: '_blank' %>
+      <% end %>
+    </div>
+    <div class="visible-phone show-img-border"></div>
+  </div>
+  <div class="span9">
+    <div>
+      <%= image_tag 'star-big.png', class: 'avg-star-img' %>
+      <%= content_tag :p, "x", class: 'avg-star-x' %>
+      <%= content_tag :p, @product.average_rating, class: 'avg-star-rating' %>
+      <a href="<%= @product.amazon_url %>" target="_blank" rel="nofollow" class="amazon-btn">
+        <%= image_tag 'amazon.png' %>
+        <%= content_tag :p, "$#{@product.price}", class: 'amazon-btn-price' %>
+      </a>
+    </div>
+    <div class="show-meta">
+      <p class="last-update">
+        Last update from <%= image_tag 'amazon-small.png', alt: 'Amazon' %>: <%= time_ago_in_words(@product.amazon_last_updated) %> ago
+        <%= link_to content_tag(:i, '', class: 'icon-info-sign'), '#amazonModal', :'data-toggle' => "modal" %>
+      </p>
+    </div>
+    <p class="amazon-desc">
+      <%= @product.description %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="span3">
+    <div class="jump-to-well affix-top" data-spy="affix" data-offset-top="350" id="show-affix">
+      <p class="jump-to">Jump To:</p>
+      <ul>
+        <li><%= link_to 'Top', '#wrap' %></li>
+        <li><%= link_to 'Reviews', '#reviews' %></li>
+        <li><%= link_to 'Similar Products', '#similar' %></li>
+        <li><%= link_to 'Questions', '#questions' %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="span9">
+    <h2 class="show-h2" id="reviews">Reviews <%= content_tag :span, "[#{@product.total_stars}]", class: 'avg-star-count' %></h2>
+    <%= link_to "Write A Review", new_product_review_path(@product), class: 'add-content-btn' %>
+    <% if @product.reviews.present? %>
+      <% @product.reviews.each do |review| %>
+        <div class="review-meta">
+          <div class="meta-top">
+            <%= content_tag :h3, review.title, class: 'review-title', id: "review-#{review.id}" %>
+          </div>
+          <div class="meta-bot">
+            <%= link_to content_tag(:i, '', class: 'icon-share icon-white'), "#{product_path(@product.id)}\#review-#{review.id}", class: 'spec-review-share linkTooltip', :'data-toggle' => "tooltip", title: 'A link for this specific review' %>
+            <%= content_tag(:p, "", class: "rated review-stars", data_rating: review.stars ) %>
+            <p class="review-date"><%= pretty_date(review.created_at) %></p>
+            <p class="review-by"> by <%= link_to review.user.name, user_path(review.user) %></p>
+          </div>
+        </div>
+        <div class="review-content">
+          <%= review.content.html_safe %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="well-explain">
+        <p>No one's posted any reviews yet!</p>
+      </div>
+    <% end %>
+
+    <h2 class="show-h2" id="similar">Similar Products</h2>
+    <% if @product.similar_products.present? %>
+      <% @product.similar_products.each do |similar| %>
+
+      <% end %>
+    <% else %>
+      <div class="well-explain">
+        <p>No similar products to show you.</p>
+      </div>
+    <% end %>
+
+    <h2 class="show-h2" id="questions">Questions <%= content_tag :span, "[#{@product.questions.count}]", class: 'avg-star-count' %></h2>
+    <%= link_to "Ask A Question", new_product_question_path(@product), class: 'add-content-btn' %>
+    <% if @product.questions.present? %>
+      <% @product.questions.each do |question| %>
+        <div class="question-well">
+          <table>
+            <tr>
+              <td>
+                <%= link_to question.title, question_path(question.id) %>
+              </td>
+              <td>
+                [<%= question.answers.count %>]
+              </td>
+            </tr>
+          </table>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="well-explain">
+        <p>No one's asked any questions yet!</p>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
+<div id="amazonModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Amazon Disclaimers</h3>
+  </div>
+  <div class="modal-body">
+    <ol>
+      <li>Revieworama is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to http://www.amazon.com.</li>
+      <li>Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on http://amazon.com or endless.com, as applicable at the time of purchase will apply to the purchase of this product.</li>
+      <li>CERTAIN CONTENT THAT APPEARS IN THIS APPLICATION or ON THIS SITE, as applicable COMES FROM AMAZON SERVICES LLC. THIS CONTENT IS PROVIDED ‘AS IS’ AND IS SUBJECT TO CHANGE OR REMOVAL AT ANY TIME.</li>
+    </ol>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+<script>
+  $('.linkTooltip').tooltip({
+    placement: 'right'
+  });
+</script>
