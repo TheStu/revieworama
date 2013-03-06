@@ -1,4 +1,4 @@
-<h1>Add a Review or Question</h1>
+<h1>Add a Review or Question for a New Product</h1>
 
 <% if params[:aq].present? %>
 
@@ -8,18 +8,18 @@
   <% end %>
 
   <div class="well">
-    <p>Find the product you want to review and select it. If you're not sure it's the product you want, click on the title to go to the product's page on Amazon.com. Once you have selected the right product, click on the 'Select Product To Review' button at the bottom of the page.</p>
+    <p>Find the product you want to review or create a question for and select it. If you're not sure it's the product you want, click on the title to go to the product's page on Amazon.com. Once you have selected the right product, scroll to the bottom of the page and select the appropriate button.</p>
   </div>
 
   <%= form_tag products_path, method: 'post' do %>
     <table class="result-table">
-      <% @results.each do |result| %>
+      <% @results.each_with_index do |result, i| %>
         <tr>
           <td>
-            <%= radio_button_tag :asin, parent_asin(result) %>
+            <%= radio_button_tag :asin, parent_asin(result), false, id: "asin_#{i}" %>
           </td>
           <td>
-            <label for="asin_<%= parent_asin(result) %>" class="result-img">
+            <label for="asin_<%= i %>" class="result-img">
               <% if result.raw.LargeImage.present? %>
                 <%= image_tag pic_res(result.raw.LargeImage.URL, 80), alt: result.title %>
               <% else %>
@@ -43,13 +43,17 @@
       <% end %>
     </table>
     <br />
-    <%= submit_tag "Select Product To Review", class: 'btn' %>
+    <div class="well">
+      <%= submit_tag "Create a Question", :name => "question_button", class: 'or-btn' %>
+      <p class="big-or">OR</p>
+      <%= submit_tag "Create a Review", :name => "review_button", class: 'or-btn' %>
+    </div>
   <% end %>
 
 <% else %>
 
   <div class="well">
-    <h3>Search for a Product to Review</h3>
+    <h3>Search for a Product to Review or Question</h3>
 
     <%= form_tag new_product_path, method: 'get' do %>
 
@@ -60,7 +64,9 @@
     <% end %>
   </div>
 
-  <h2>OR</h2>
+  <p class="big-or">OR</p>
+  <br />
+  <br />
 
   <div class="well">
     <div>

@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  authorize_resource
+
   # GET /products
   # GET /products.json
   def index
@@ -14,6 +16,7 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
+    update_product(@product) if Time.now - 24.hour > @product.amazon_last_updated
 
     respond_to do |format|
       format.html # show.html.erb
@@ -64,20 +67,15 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
+        build_similars(@result, @product)
 
-        # Build similars after product has saved, if they're present
-
-        if @result.first.raw.SimilarProducts.present?
-          @result.first.raw.SimilarProducts.SimilarProduct.each do |similar|
-            Similar.new(:product_id => @product.id,
-                        :asin => similar.ASIN
-            ).save
+        format.html do
+          if params[:review_button]
+            redirect_to new_product_review_path(@product)
+          else
+            redirect_to new_product_question_path(@product)
           end
         end
-
-        # Redirect to new review path
-
-        format.html { redirect_to new_product_review_path(@product) }
         format.json { render json: @product, status: :created, location: @product }
       else
         format.html { render action: "new" }
@@ -164,6 +162,32 @@ class ProductsController < ApplicationController
       end
     else
       return ''
+    end
+  end
+
+  def update_product(product)
+    @result = fetch_by_asin(product.asin)
+    if @result.present?
+      product.update_attributes(:picture_url => @result.first.raw.LargeImage.present? ? @result.first.raw.LargeImage.URL : '',
+                                :amazon_url => @result.first.raw.DetailPageURL,
+                                :price => fetch_price_for_price(@result),
+                                :price_too_low => fetch_price_for_too_low(@result),
+                                :name => @result.first.title,
+                                :product_group => @result.first.raw.ItemAttributes.ProductGroup.present? ? @result.first.raw.ItemAttributes.ProductGroup : '',
+                                :description => fetch_desc(@result),
+                                :amazon_last_updated => Time.now)
+      product.similars.destroy_all if @result.first.raw.SimilarProducts.present?
+      build_similars(@result, product)
+    end
+  end
+
+  def build_similars(result, product)
+    if result.first.raw.SimilarProducts.present?
+      result.first.raw.SimilarProducts.SimilarProduct.each do |similar|
+        Similar.new(:product_id => product.id,
+                    :asin => similar.ASIN
+        ).save
+      end
     end
   end
 end

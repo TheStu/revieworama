@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  authorize_resource
+
   # GET /questions
   # GET /questions.json
   def index

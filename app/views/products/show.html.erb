@@ -24,6 +24,18 @@
       </a>
     </div>
     <div class="show-meta">
+      <div class="show-twitter">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= product_url(@product) %>">Tweet</a>
+      </div>
+
+      <div class="show-google">
+        <div class="g-plusone" data-size="medium" data-href="<%= product_url(@product) %>"></div>
+      </div>
+
+      <div class="show-fb">
+        <div class="fb-like" data-href="<%= product_url(@product) %>" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false"></div>
+      </div>
+
       <p class="last-update">
         Last update from <%= image_tag 'amazon-small.png', alt: 'Amazon' %>: <%= time_ago_in_words(@product.amazon_last_updated) %> ago
         <%= link_to content_tag(:i, '', class: 'icon-info-sign'), '#amazonModal', :'data-toggle' => "modal" %>
@@ -64,7 +76,26 @@
         </div>
         <div class="review-content">
           <%= review.content.html_safe %>
+          <% if can? :edit, review %>
+            <div class="edit-destroy-review">
+              <%= link_to content_tag(:i, '', class: 'icon-edit icon-white'), edit_review_path(review), class: 'edit-review editDestroyTooltip', :'data-toggle' => "tooltip", title: 'Edit this review' %>
+              <% if can? :destroy, review %>
+                <%= link_to content_tag(:i, '', class: 'icon-remove icon-white'), review, method: :delete, data: { confirm: 'Are you sure?' }, class: 'destroy-review editDestroyTooltip', :'data-toggle' => "tooltip", title: 'Delete this review' %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
+        <h3 class="show-h3">Comments <%= content_tag :span, "[#{review.comments.count}]", class: 'avg-star-count' %></h3>
+        <%= link_to "Add A Comment", new_review_comment_path(review), class: 'add-secondary-content-btn' %>
+        <% if review.comments.present? %>
+          <% review.comments.each do |comment| %>
+
+          <% end %>
+        <% else %>
+        <div class="well-explain">
+          <p>No one's posted any comments yet!</p>
+        </div>
+        <% end %>
       <% end %>
     <% else %>
       <div class="well-explain">
@@ -129,5 +160,9 @@
 <script>
   $('.linkTooltip').tooltip({
     placement: 'right'
+  });
+
+  $('.editDestroyTooltip').tooltip({
+    placement: 'left'
   });
 </script>

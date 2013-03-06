@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  authorize_resource
+
   # GET /reviews
   # GET /reviews.json
   def index
@@ -63,7 +65,7 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.update_attributes(params[:review])
-        format.html { redirect_to @review, notice: 'Review was successfully updated.' }
+        format.html { redirect_to @review.product, notice: 'Review was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

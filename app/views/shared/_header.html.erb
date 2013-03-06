@@ -13,11 +13,24 @@
         <% end %>
         <ul class="nav pull-left">
           <li><%= link_to "<i class=\"icon-question-sign icon-white link-icon\"></i> F.A.Q.s".html_safe, faq_path %></li>
+          <li><%= link_to "<i class=\"icon-plus icon-white link-icon\"></i> New Product".html_safe, new_product_path, :'data-toggle' => 'popover', :'data-content' => 'Cant find the product you want to create a review or question for? Find it here.', :'data-original-title' => "Find Products We Don't Have", id: 'headerPop' %></li>
         </ul>
         <ul class="nav pull-right header-user-ul">
         <% if user_signed_in? %>
-          <li><%= link_to '<i class="icon-user icon-white link-icon"></i> Profile'.html_safe, user_path(current_user) %></li>
-          <li><%= link_to '<i class="icon-off icon-white link-icon"></i> Sign Out'.html_safe, destroy_user_session_path, method: "delete" %></li>
+          <li class="tag-percent"><%= current_user.amazon_tag_percent %>%</li>
+          <li class="dropdown" id="navbar-user-avatar">
+            <a class="dropdown-toggle"
+               data-toggle="dropdown"
+               href="#">
+                <%= image_tag avatar_url(current_user, 32) %>
+                <b class="caret"></b>
+              </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "My Profile", user_path(current_user) %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Sign Out", destroy_user_session_path, method: "delete" %></li>
+            </ul>
+          </li>
         <% else %>
           <li><%= link_to '<i class="icon-plus-sign icon-white link-icon"></i> Sign Up'.html_safe, new_user_registration_path %></li>
           <li><%= link_to '<i class="icon-off icon-white link-icon"></i> Sign In'.html_safe, new_user_session_path %></li>
@@ -27,3 +40,5 @@
     </div>
   </div>
 </div>
+
+

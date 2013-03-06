@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  authorize_resource
+
   # GET /comments
   # GET /comments.json
   def index
@@ -24,6 +26,7 @@ class CommentsController < ApplicationController
   # GET /comments/new
   # GET /comments/new.json
   def new
+    @review = Review.find(params[:review_id])
     @comment = Comment.new
 
     respond_to do |format|

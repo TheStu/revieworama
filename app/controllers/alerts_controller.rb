@@ -1,4 +1,6 @@
 class AlertsController < ApplicationController
+  authorize_resource
+
   # GET /alerts
   # GET /alerts.json
   def index

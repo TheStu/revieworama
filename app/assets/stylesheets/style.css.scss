@@ -12,6 +12,10 @@ $pinkk: #D43783;
   font-family: 'Nova Square', cursive;
 }
 
+.content-fonted {
+  font-family: 'Actor', sans-serif;
+}
+
 .float-right {
   float: right;
 }
@@ -203,6 +207,27 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   .btn-navbar {
     margin-top: 11px;
   }
+  .header-user-ul {
+    .tag-percent {
+      font-size: 32px;
+      line-height: 32px;
+      color: white;
+      margin: 10px 0 10px 10px;
+    }
+    #navbar-user-avatar > a {
+      padding: 0 5px;
+      border: 0;
+      .caret{
+        margin-top: 13px;
+      }
+      .dropdown-menu a {
+        padding: 3px 20px;
+      }
+    }
+  }
+  .popover-content {
+    @extend .content-fonted;
+  }
 }
 
           ///////////////////////////////////////////////////////////
@@ -291,13 +316,18 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     color: #666;
     margin-bottom: 0;
   }
+  .show-fb, .show-twitter, .show-google {
+    display: inline-block;
+    vertical-align: top;
+    float: left;
+  }
 }
 
 .amazon-desc {
   font-size: 22px;
   line-height: 28px;
   clear: both;
-  padding-top: 10px;
+  padding-top: 5px;
   @media (max-width: 400px) {
     font-size: 16px;
     line-height: 22px;
@@ -418,7 +448,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     .spec-review-share {
       margin: 0 2px 0 0;
       @extend .btn, .btn-mini;
-      padding: 0 2px;
+      padding: 0 4px;
     }
   }
 }
@@ -432,6 +462,18 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   background-color: white;
   h1 {
     border: 0;
+  }
+  .edit-destroy-review {
+    height: 22px;
+    a {
+      @extend .btn, .btn-mini;
+      padding: 0 4px;
+      margin-left: 5px;
+      float: right;
+    }
+    .destroy-review {
+      @extend .btn-danger;
+    }
   }
 }
 
@@ -508,6 +550,31 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   }
 }
 
+.show-h3 {
+  display: inline-block;
+  background-color: #333;
+  padding: 7px;
+  color: white;
+  font-size: 17px;
+  line-height: 17px;
+  @media (max-width: 400px) {
+    font-size: 16px;
+    line-height: 16px;
+    padding: 6px;
+  }
+}
+
+.add-secondary-content-btn {
+  @extend .btn;
+  float: right;
+  margin-top: 10px;
+  @media (max-width: 400px) {
+    font-size: 11px;
+    line-height: 11px;
+    padding: 7px;
+  }
+}
+
           ///////////////////////////////////////////////////////////
           //                                                       //
           //                     QUESTION#SHOW                     //
@@ -545,7 +612,13 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   margin: 10px 0;
   background-color: white;
   .question-for {
-    @extend label;
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    padding: 5px;
+    text-transform: capitalize;
   }
   .q-img {
     vertical-align: middle;
@@ -728,9 +801,24 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   }
 }
 
+.big-or {
+  display: inline-block;
+  font-size: 31.5px;
+  line-height: 40px;
+  font-weight: bold;
+  @extend .fonted;
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+.or-btn {
+  @extend .btn;
+  margin-bottom: 16px;
+}
+
           ///////////////////////////////////////////////////////////
           //                                                       //
-          //              REVIEW#NEW + QUESTION#NEW                //
+          //        REVIEW#NEW + QUESTION#NEW + COMMENT#NEW        //
           //                                                       //
           ///////////////////////////////////////////////////////////
 
@@ -746,6 +834,12 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 
 #review_content, #review_title, #question_content, #question_title   {
   width: 97.5%;
+  max-width: 600px;
+}
+
+#comment_content {
+  width: 97.5%;
+  height: 200px;
 }
 
 .review-rating {
@@ -762,9 +856,9 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 .faq-nav {
   margin-top: 10px;
   li a {
-    border: 2px solid $pinkk;
+    border: 2px solid #333;
     padding: 8px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     margin-bottom: -2px;
   }
